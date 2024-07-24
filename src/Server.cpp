@@ -99,17 +99,17 @@ void Server::runServers(void) {
 
     pollfds.clear();
     for (size_t i = 0; i < _sockets.size(); i++) {
-      struct pollfd pfd = {.fd = _sockets[i]->getSocketFD(), .events = POLLIN};
+      struct pollfd pfd = {.fd = _sockets[i]->getSocketFD(), .events = POLLIN, .revents = 0};
       pollfds.push_back(pfd);
     }
     std::map<unsigned short, Client *>::const_iterator it;
     for (it = _clients.begin(); it != _clients.end(); it++) {
       const short ev =
           it->second->getWaitingStatus() == READING ? POLLIN : POLLOUT;
-      struct pollfd cpfd = {.fd = it->first, .events = ev};
+      struct pollfd cpfd = {.fd = it->first, .events = ev, .revents = 0};
       pollfds.push_back(cpfd);
     }
-    int ret = poll(pollfds.data(), pollfds.size(), 500);
+    int ret = poll(pollfds.data(), pollfds.size(), -1);
     if (stopListening)
       break;
     if (ret < 0)

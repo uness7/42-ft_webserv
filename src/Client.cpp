@@ -38,9 +38,11 @@ void Client::buildResponse() {
   }
   _response.build(this->getRequest());
 }
+
 const std::string Client::getResponseToString() const {
   return _response.getResponse();
 }
+
 const Response &Client::getResponse() const { return _response; }
 
 void Client::sendResponse() {

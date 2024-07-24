@@ -5,27 +5,29 @@
 Request::Request(std::string entireRequest)
     : _data(entireRequest), _method(""), _path(""), _mimetype(""), _version(""),
       _host(""), _userAgent("") {
-  this->parseData();
-  std::cout << entireRequest << std::endl;
+	      this->parseData();
+	      std::cout << entireRequest << std::endl;
 }
 
 Request::~Request() {}
 Request::Request(const Request &cp) { *this = cp; }
+
 Request &Request::operator=(const Request &rhs) {
-  if (this != &rhs)
-  {
-    this->_path = rhs.getPath();
-    this->_method = rhs.getMethod();
-    this->_mimetype = rhs.getMimeType();
-    this->_connection = rhs.getConnection();
-    this->_host = rhs._host;
-    this->_version = rhs._version;
-    this->_userAgent = rhs._userAgent;
-  }
-  return *this;
+	if (this != &rhs)
+	{
+		this->_path = rhs.getPath();
+		this->_method = rhs.getMethod();
+		this->_mimetype = rhs.getMimeType();
+		this->_connection = rhs.getConnection();
+		this->_host = rhs._host;
+		this->_version = rhs._version;
+		this->_userAgent = rhs._userAgent;
+	}
+	return *this;
 }
 
-void Request::parseData() {
+void Request::parseData()
+{
   std::stringstream request(_data);
   std::string method;
   std::string path;
@@ -46,6 +48,13 @@ void Request::parseData() {
     else if (!_connection.size() && line.compare(0, 12, "Connection: ") == 0)
       setConnection(line.substr(12));
   }
+
+
+  if (_mimetype == "application/python")
+  {
+
+  }
+
 }
 
 void Request::setMethod(std::string s) { this->_method = s; }
@@ -57,24 +66,27 @@ void Request::setPath(std::string s) {
     this->_path = s;
   setMimeType();
 }
-void Request::setMimeType() {
-  if (_path.length() >= 5 && _path.substr(_path.length() - 5) == ".html") {
-    _mimetype = "text/html";
-  } else if (_path.length() >= 4 &&
-             _path.substr(_path.length() - 4) == ".css") {
-    _mimetype = "text/css";
-  } else if (_path.length() >= 4 &&
-             _path.substr(_path.length() - 4) == ".jpg") {
-    _mimetype = "image/jpg";
-  } else if (_path.length() >= 3 && _path.substr(_path.length() - 3) == ".js") {
-    _mimetype = "application/javascript";
-  } else if (_path.length() >= 4 &&
-             _path.substr(_path.length() - 4) == ".mp4") {
-    _mimetype = "video/mp4";
-  } else {
-    _mimetype = "text/plain";
-  }
+
+
+void Request::setMimeType()
+{
+	if (_path.length() >= 5 && _path.substr(_path.length() - 5) == ".html") {
+		_mimetype = "text/html";
+	} else if (_path.length() >= 4 && _path.substr(_path.length() - 4) == ".css") {
+		_mimetype = "text/css";
+	} else if (_path.length() >= 4 && _path.substr(_path.length() - 4) == ".jpg") {
+		_mimetype = "image/jpg";
+	} else if (_path.length() >= 3 && _path.substr(_path.length() - 3) == ".js") {
+		_mimetype = "application/javascript";
+	} else if (_path.length() >= 4 && _path.substr(_path.length() - 4) == ".mp4") {
+		_mimetype = "video/mp4";
+	} else if (_path.length() >= 3 && _path.substr(_path.length() - 3) == ".py") {
+		_mimetype = "application/python";
+	} else {
+		_mimetype = "text/plain";
+	}
 }
+
 void Request::setHost(std::string s) { this->_host = s; }
 void Request::setVersion(std::string s) { this->_version = s; }
 void Request::setUserAgent(std::string s) { this->_userAgent = s; }

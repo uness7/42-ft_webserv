@@ -8,11 +8,15 @@
 #include <cstdlib>
 #include <cstdio>
 
-CGIResponse::CGIResponse(const std::string& scriptPath): scriptPath_(scriptPath) {}
+CGIResponse::CGIResponse(const std::string& scriptPath): scriptPath_(scriptPath)
+{
+	// Constructor
+}
 
-std::string CGIResponse::execute()
+std::string	CGIResponse::execute()
 {
 	int 	pipefd[2];
+
 	if (pipe(pipefd) == -1)
 	{
 		std::perror("pipe");

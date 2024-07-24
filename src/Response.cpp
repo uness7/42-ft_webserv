@@ -12,15 +12,12 @@ void	Response::build(const Request &request)
 
 	if (mimetype == "application/python") // CGI Request
 	{
-		std::string	path = "/home/waizi/Desktop/ft_webserv/CGI/form/my_cgi.py";
-		CGIResponse cgiResponse(path);
-		const std::string response = cgiResponse.execute();
+		std::string		path;
 
-		// Construct the HTTP response headers
-		std::cout << "HTTP/1.1 200 OK\r\n";
-		std::cout << "Content-Type: text/html\r\n";
-		std::cout << "Content-Length: " << response.size() << "\r\n";
-		std::cout << "\r\n"; // Blank line separating headers from body
+		path = "/home/yzioual/Desktop/ft_webserv/cgi-bin/form/my_cgi.py";
+		CGIResponse cgiResponse(path);
+		const std::string 	cgiOut = cgiResponse.execute();
+		const std::string 	response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n" + cgiOut;
 		this->_value = response;
 		return ;
 	}

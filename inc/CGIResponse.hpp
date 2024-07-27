@@ -2,18 +2,26 @@
 #define CGIRESPONSE_HPP
 
 #include <string>
+#include <map>
 
-class CGIResponse {
-public:
-    // Constructor that takes the path to the CGI script
-    CGIResponse(const std::string& scriptPath);
+class CGIResponse
+{
+	public:
+		CGIResponse(const std::string& scriptPath);
+		void	setCgiEnv(std::map<std::string, std::string> &map);
 
-    // Method to execute the CGI script and return the response
-    std::string execute();
+		std::string	execute(
+				const std::map<std::string, std::string> &envMap, 
+				const std::string &cgiPath, 
+				const std::string &scriptPath, 
+				const std::string &method, 
+				const std::string &postData);
 
-private:
-    std::string scriptPath_;
+		std::map<std::string, std::string>	envMap;
+
+	private:
+		std::string scriptPath_;
 };
 
-#endif // CGIRESPONSE_HPP
+#endif 
 

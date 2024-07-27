@@ -1,17 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Submission</title>
 </head>
+
 <body style='text-align:center;'>
-    <h1 style='color: green;'>Waizi </h1>
-    <form action="cgi-bin/my_cgi.py" method="post">
+    <h1 style='color: green;'>Waizi</h1>
+
+    <form action="./script.py" method="POST" enctype="application/x-www-form-urlencoded">
+
+
+	<label for="x">X:</label>
+	<input type="text" id="x" name="x" required><br><br>
+
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="happy">Are you happy?</label>
-        <input type="checkbox" id="happy" name="happy"><br><br>
-        <label for="sad">Are you sad?</label>
-        <input type="checkbox" id="sad" name="sad"><br><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label>How are you feeling?</label><br>
+        <input type="radio" id="happy" name="status" value="happy">
+        <label for="happy">Happy</label><br>
+
+        <input type="radio" id="sad" name="status" value="sad">
+        <label for="sad">Sad</label><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="feedback">Feedback:</label><br>
+        <textarea id="feedback" name="feedback" rows="4" cols="50" placeholder="Your feedback here..."></textarea><br><br>
+
+        <label>Favorite Colors:</label><br>
+        <input type="checkbox" id="red" name="colors" value="red">
+        <label for="red">Red</label><br>
+
+        <input type="checkbox" id="green" name="colors" value="green">
+        <label for="green">Green</label><br>
+
+        <input type="checkbox" id="blue" name="colors" value="blue">
+        <label for="blue">Blue</label><br><br>
+
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="france">France</option>
+            <option value="usa">USA</option>
+            <option value="uk">UK</option>
+            <option value="canada">Canada</option>
+            <option value="australia">Australia</option>
+        </select><br><br>
+
         <input type="submit" value="Submit">
     </form>
 </body>

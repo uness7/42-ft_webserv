@@ -14,6 +14,7 @@ private:
   std::string _host;
   std::string _userAgent;
   std::string _connection;
+  std::string	_postData;
 
   void parseData();
 
@@ -28,6 +29,7 @@ public:
   std::string getPath() const;
   std::string getMimeType() const;
   std::string getConnection() const;
+  std::string getPostData() const;
 
   // SETTERS
   void setMethod(std::string);
@@ -37,6 +39,7 @@ public:
   void setVersion(std::string);
   void setUserAgent(std::string);
   void setConnection(std::string);
+  void setPostData(std::string);
 };
 
 std::ostream &operator<<(std::ostream &out, const Request &);

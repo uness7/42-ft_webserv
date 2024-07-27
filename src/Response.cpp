@@ -1,25 +1,36 @@
 #include "../inc/Response.hpp"
 #include "CGIResponse.hpp"
 #include <unistd.h>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 Response::Response() : _value("") {}
 Response::~Response() {}
 
-void	Response::build(const Request &request)
+void Response::build(const Request &request)
 {
-	std::string 	path = request.getPath();
-	std::string	mimetype = request.getMimeType();
+	std::string path = request.getPath();
+	std::string mimetype = request.getMimeType();
 
-	if (mimetype == "application/python") // CGI Request
+	if (mimetype == "application/python")
 	{
-		std::string		path;
+		std::string 	scriptPath = "/home/waizi/Desktop/ft_webserv/cgi-bin/form/script.py";
+		CGIResponse 	cgiResponse(scriptPath);
+		std::string 	postData = request.getPostData(); 
 
-		path = "/home/yzioual/Desktop/ft_webserv/cgi-bin/form/my_cgi.py";
-		CGIResponse cgiResponse(path);
-		const std::string 	cgiOut = cgiResponse.execute();
-		const std::string 	response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n" + cgiOut;
-		this->_value = response;
-		return ;
+		cgiResponse.setCgiEnv(envMap);
+		const std::string 	response = cgiResponse.execute(
+				this->envMap, "/usr/bin/python3", scriptPath, "POST", postData);
+
+		std::ostringstream httpResponse;
+		httpResponse << "HTTP/1.1 200 OK\r\n";
+		httpResponse << "Content-Type: text/html\r\n";
+		httpResponse << "Content-Length: " << response.size() << "\r\n";
+		httpResponse << "\r\n"; 
+		httpResponse << response;
+		this->_value = httpResponse.str();
+		return;
 	}
 	else
 	{
@@ -33,19 +44,22 @@ void	Response::build(const Request &request)
 		else 
 		{
 			std::cerr << "Unable to open file " << path << std::endl;
-			this->_value = "HTTP/1.1 302 Found\nLocation: /static/index.html\n\n";
+			this->_value = "HTTP/1.1 302 Found\r\nLocation: /static/index.html\r\n\r\n";
 			return;
 		}
 		std::string fileRequested = buffer.str();
 		std::ostringstream ss;
 		ss 
-			<< "HTTP/1.1 200 OK\nContent-Type: " 
+			<< "HTTP/1.1 200 OK\r\nContent-Type: " 
 			<< request.getMimeType()
-			<< "\nContent-Length: " 
-			<< fileRequested.size() << "\n\n"
+			<< "\r\nContent-Length: " 
+			<< fileRequested.size() << "\r\n\r\n"
 			<< fileRequested;
 		this->_value = ss.str();
 	}
 }
 
-const std::string Response::getResponse() const { return this->_value; }
+const std::string Response::getResponse() const
+{
+	return this->_value;
+}

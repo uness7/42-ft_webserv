@@ -15,7 +15,7 @@ void Response::build(const Request &request)
 
 	if (mimetype == "application/python")
 	{
-		std::string 	scriptPath = "/home/waizi/Desktop/ft_webserv/cgi-bin/form/script.py";
+		std::string 	scriptPath = "/home/yzioual/Desktop/ft_webserv/cgi-bin/form/script.py";
 		CGIResponse 	cgiResponse(scriptPath);
 		std::string 	postData = request.getPostData(); 
 

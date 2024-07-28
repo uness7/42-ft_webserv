@@ -12,7 +12,7 @@
 4. Clients must be able to upload files
 5. It needs to be able to listen to multiple ports
 6. It should never die
-7. It should work with one CGI
+7. It should work with one CGI or more!
 8. It should never hang forever
 9. HTTP res status codes must be accurate
 

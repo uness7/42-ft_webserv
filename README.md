@@ -2,7 +2,7 @@
 
 ## Table of Contents
 - [Requirements](#requirements)
-- [TCP/IP](#tcp/ip)
+- [TCP&IP](#tcp&ip)
 
 ## Requirements
 

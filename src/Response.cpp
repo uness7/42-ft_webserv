@@ -15,13 +15,12 @@ void Response::build(const Request &request)
 
 	if (mimetype == "application/python")
 	{
-		std::string 	scriptPath = "/home/yzioual/Desktop/ft_webserv/cgi-bin/form/script.py";
+		std::string 	scriptPath = "/home/yzioual/Desktop/ft_webserv/cgi-bin/file_upload/upload.py";
 		CGIResponse 	cgiResponse(scriptPath);
 		std::string 	postData = request.getPostData(); 
 
 		cgiResponse.setCgiEnv(envMap);
-		const std::string 	response = cgiResponse.execute(
-				this->envMap, "/usr/bin/python3", scriptPath, "POST", postData);
+		const std::string 	response = cgiResponse.execute(this->envMap, "/usr/bin/python3", scriptPath, "POST", postData);
 
 		std::ostringstream httpResponse;
 		httpResponse << "HTTP/1.1 200 OK\r\n";

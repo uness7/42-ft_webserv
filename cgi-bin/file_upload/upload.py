@@ -8,11 +8,22 @@ cgitb.enable();
 
 form = cgi.FieldStorage();
 
-file_item = form['file']
 
+ # Print the form data for debugging
+print("<html><body>")
+print("<h1>Form Data</h1>")
+print("<table border='1'>")
+print("<tr><th>Field Name</th><th>Value</th></tr>")
 
-print(file_item.filename);
+    # Get the list of form fields and their values
+for key in form.keys():
+    value = form.getvalue(key)
+    print(f"<tr><td>{key}</td><td>{value}</td></tr>")
 
+print("</table>")
+print("</body></html>")
+
+"""
 
 if file_item.filename:
     fn = os.path.basename(file_item.filename)
@@ -23,3 +34,5 @@ if file_item.filename:
 else:
     message = 'No file was uploaded'
     print(f"Content-Type: text/html\n\n<html><body><p>{message}</p></body></html>")
+
+"""

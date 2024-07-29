@@ -61,7 +61,6 @@ void	Request::parseData()
 		else if (!_connection.size() && line.compare(0, 12, "Connection: ") == 0)
 			setConnection(line.substr(12));
 
-
 		if (isPost)
 		{
 			std::getline(request, line);
